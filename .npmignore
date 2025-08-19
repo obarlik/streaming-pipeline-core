@@ -1,0 +1,42 @@
+# Source files
+src/
+tests/
+*.ts
+!*.d.ts
+
+# Development files
+tsconfig.json
+jest.config.js
+.vscode/
+.git/
+.gitignore
+
+# Development files - banner generation
+*.py
+banner-*.png
+custom_banner.png
+logo-*.svg
+demo*/
+fonts/
+
+# Documentation source (keep built docs)
+docs/
+
+# Build artifacts
+node_modules/
+*.tgz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
