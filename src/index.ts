@@ -7,5 +7,5 @@ export * from './framework/observability';
 // Main streaming pipeline orchestrator
 export * from './orchestrator/StreamingPipeline';
 
-// Examples
-export * from './examples/MarkdownProcessor';
+// Fluent API helpers
+export * from './fluent/FluentPipeline';
