@@ -56,5 +56,14 @@
     "banner.png",
     "logo.png",
     "LICENSE"
-  ]
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": ["<rootDir>/tests"],
+    "testMatch": ["**/tests/**/*.test.ts"],
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
+    "verbose": true,
+    "testTimeout": 30000
+  }
 }
