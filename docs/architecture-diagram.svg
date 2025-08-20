@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pipelineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#1e40af" stop-opacity="0.2"/>
+    </linearGradient>
+    
+    <linearGradient id="bufferGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#22c55e" stop-opacity="0.1"/>  
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.1"/>
+    </linearGradient>
+    
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e40af">
+    Streaming Pipeline Core Architecture
+  </text>
+
+  <!-- Input Layer -->
+  <rect x="50" y="80" width="120" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" filter="url(#shadow)"/>
+  <text x="110" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">INPUT</text>
+  <text x="110" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">String | Uint8Array</text>
+  <text x="110" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">ReadableStream</text>
+
+  <!-- Circular Buffer (Central) -->
+  <rect x="250" y="60" width="300" height="100" rx="12" fill="url(#bufferGrad)" stroke="#2563eb" stroke-width="3" filter="url(#shadow)"/>
+  <text x="400" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e40af">
+    Circular Buffer System
+  </text>
+  
+  <!-- Buffer Sections -->
+  <rect x="270" y="100" width="70" height="40" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="305" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dc2626">Look Behind</text>
+  <text x="305" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#dc2626">History</text>
+  
+  <rect x="350" y="100" width="50" height="40" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="375" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#16a34a">Current</text>
+  <text x="375" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#16a34a">Position</text>
+  
+  <rect x="410" y="100" width="70" height="40" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="445" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2563eb">Look Ahead</text>
+  <text x="445" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#2563eb">Future</text>
+
+  <!-- Memory Properties -->
+  <text x="400" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#374151">
+    ⚡ O(1) Operations | 🔄 Bounded Memory | 📊 Auto-Compact
+  </text>
+
+  <!-- Processing Layer -->
+  <rect x="100" y="220" width="600" height="120" rx="12" fill="url(#pipelineGrad)" stroke="#1e40af" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e40af">
+    Processing Pipeline
+  </text>
+
+  <!-- Processors -->
+  <rect x="120" y="260" width="100" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="170" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#d97706">Processor 1</text>
+  <text x="170" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Markdown</text>
+  <text x="170" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Priority: 10</text>
+
+  <rect x="240" y="260" width="100" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="290" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#d97706">Processor 2</text>
+  <text x="290" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Custom</text>
+  <text x="290" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Priority: 15</text>
+
+  <rect x="360" y="260" width="100" height="60" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="410" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#d97706">Processor N</text>
+  <text x="410" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Universal</text>
+  <text x="410" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">Interface</text>
+
+  <!-- Renderer -->
+  <rect x="500" y="260" width="120" height="60" rx="6" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="560" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0284c7">Renderer</text>
+  <text x="560" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0284c7">HTML | JSON</text>
+  <text x="560" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#0284c7">Custom Format</text>
+
+  <!-- Output Layer -->
+  <rect x="630" y="80" width="120" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" filter="url(#shadow)"/>
+  <text x="690" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">OUTPUT</text>
+  <text x="690" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">Streaming Chunks</text>
+  <text x="690" y="128" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">AsyncIterable</text>
+
+  <!-- Flow Arrows -->
+  <!-- Input to Buffer -->
+  <path d="M 170 110 L 240 110" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Buffer to Processing -->
+  <path d="M 400 160 L 400 210" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- Processing to Output -->
+  <path d="M 620 290 L 680 140" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Performance Metrics -->
+  <rect x="50" y="400" width="700" height="80" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+  <text x="400" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1e293b">
+    Performance Characteristics
+  </text>
+  
+  <text x="120" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Throughput:</tspan> 500K+ chars/sec
+  </text>
+  
+  <text x="280" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Latency:</tspan> &lt;10ms first chunk
+  </text>
+  
+  <text x="440" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Memory:</tspan> Constant usage
+  </text>
+  
+  <text x="600" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Operations:</tspan> O(1) complexity
+  </text>
+
+  <text x="200" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Scalability:</tspan> GB+ files with MB memory
+  </text>
+  
+  <text x="500" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#475569">
+    <tspan font-weight="bold">Real-time:</tspan> Immediate chunk output
+  </text>
+
+  <!-- Factory Patterns -->
+  <rect x="50" y="520" width="700" height="60" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="1"/>
+  <text x="400" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#a16207">
+    Factory Patterns
+  </text>
+  
+  <text x="150" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#a16207">
+    createTextPipeline()
+  </text>
+  
+  <text x="300" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#a16207">
+    createBinaryPipeline()
+  </text>
+  
+  <text x="450" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#a16207">
+    createHighPerformancePipeline()
+  </text>
+  
+  <text x="650" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#a16207">
+    createMemoryEfficientPipeline()
+  </text>
+</svg>

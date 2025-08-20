@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="500" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="memoryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.3"/>
+      <stop offset="40%" stop-color="#22c55e" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#22c55e" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.3"/>
+    </linearGradient>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e40af">
+    Circular Buffer Memory Flow
+  </text>
+
+  <!-- Memory Layout -->
+  <rect x="100" y="80" width="700" height="80" rx="8" fill="url(#memoryGrad)" stroke="#1e40af" stroke-width="3"/>
+  
+  <!-- Memory Sections -->
+  <rect x="120" y="100" width="200" height="40" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="220" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#dc2626">
+    Look Behind Buffer
+  </text>
+  <text x="220" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#dc2626">
+    Size: 256 chars (configurable)
+  </text>
+  
+  <rect x="340" y="100" width="80" height="40" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="3" filter="url(#glow)"/>
+  <text x="380" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#16a34a">
+    Current
+  </text>
+  <text x="380" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">
+    Processing
+  </text>
+  
+  <rect x="440" y="100" width="240" height="40" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="560" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2563eb">
+    Look Ahead Buffer
+  </text>
+  <text x="560" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2563eb">
+    Size: 512 chars (configurable)
+  </text>
+
+  <!-- Position Indicator -->
+  <polygon points="380,160 370,175 390,175" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+  <text x="380" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#16a34a">
+    Current Position
+  </text>
+
+  <!-- Data Flow Steps -->
+  <text x="450" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1e293b">
+    Data Flow Process
+  </text>
+
+  <!-- Step 1: Input -->
+  <rect x="50" y="260" width="180" height="60" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="140" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1e293b">
+    1. Input Stream
+  </text>
+  <text x="140" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#475569">
+    String | Uint8Array | ReadableStream
+  </text>
+  <text x="140" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#475569">
+    → Buffer.fill(data)
+  </text>
+
+  <!-- Step 2: Processing -->
+  <rect x="270" y="260" width="180" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="360" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#d97706">
+    2. Process Current
+  </text>
+  <text x="360" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d97706">
+    peek() | lookAhead() | lookBehind()
+  </text>
+  <text x="360" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#d97706">
+    → Generate StreamChunk
+  </text>
+
+  <!-- Step 3: Advance -->
+  <rect x="490" y="260" width="180" height="60" rx="8" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="580" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#16a34a">
+    3. Advance Position
+  </text>
+  <text x="580" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">
+    advance(n) → Move forward
+  </text>
+  <text x="580" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">
+    → Auto-compact if needed
+  </text>
+
+  <!-- Step 4: Output -->
+  <rect x="710" y="260" width="140" height="60" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="780" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2563eb">
+    4. Stream Output
+  </text>
+  <text x="780" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2563eb">
+    Real-time chunks
+  </text>
+  <text x="780" y="308" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2563eb">
+    AsyncIterable&lt;string&gt;
+  </text>
+
+  <!-- Flow Arrows -->
+  <path d="M 230 290 L 260 290" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 450 290 L 480 290" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 670 290 L 700 290" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Memory Management Features -->
+  <rect x="100" y="360" width="700" height="100" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="450" y="385" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1e293b">
+    Memory Management Features
+  </text>
+
+  <!-- Feature Boxes -->
+  <rect x="120" y="395" width="150" height="50" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+  <text x="195" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#dc2626">
+    Auto-Compaction
+  </text>
+  <text x="195" y="423" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#dc2626">
+    Old data automatically
+  </text>
+  <text x="195" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#dc2626">
+    dropped when limit reached
+  </text>
+
+  <rect x="290" y="395" width="150" height="50" rx="4" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/>
+  <text x="365" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#16a34a">
+    Bounded Memory
+  </text>
+  <text x="365" y="423" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#16a34a">
+    Total memory = lookBehind
+  </text>
+  <text x="365" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#16a34a">
+    + 1 + lookAhead (constant)
+  </text>
+
+  <rect x="460" y="395" width="150" height="50" rx="4" fill="#eff6ff" stroke="#3b82f6" stroke-width="1"/>
+  <text x="535" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#2563eb">
+    Auto-Refill
+  </text>
+  <text x="535" y="423" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#2563eb">
+    New data automatically
+  </text>
+  <text x="535" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#2563eb">
+    loaded as needed
+  </text>
+
+  <rect x="630" y="395" width="150" height="50" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="705" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#d97706">
+    O(1) Operations
+  </text>
+  <text x="705" y="423" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">
+    peek(), advance(), lookAhead()
+  </text>
+  <text x="705" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#d97706">
+    all constant time
+  </text>
+</svg>

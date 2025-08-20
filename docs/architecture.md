@@ -6,6 +6,20 @@ Deep dive into the circular buffer streaming architecture and design decisions.
 
 The Streaming Pipeline Core is built around a **circular buffer system** that provides bounded memory usage with unlimited streaming capability. This architecture enables real-time processing of large content while maintaining constant memory usage.
 
+## Architecture Diagrams
+
+### System Overview
+
+![Architecture Overview](architecture-diagram.svg)
+
+The above diagram shows the complete system architecture with input layer, circular buffer system, processing pipeline, and output layer.
+
+### Buffer Memory Flow
+
+![Buffer Flow](buffer-flow-diagram.svg)
+
+This diagram illustrates how data flows through the circular buffer system and the memory management features.
+
 ## Circular Buffer Architecture
 
 ### Core Concept
