@@ -33,6 +33,15 @@ jobs:
     - name: 🧪 Run Tests
       run: npm test
       
+    - name: 🔍 Check Environment
+      run: |
+        echo "OS: $(uname -a)"
+        echo "CPU: $(grep 'model name' /proc/cpuinfo | head -1 | cut -d: -f2 | sed 's/^ *//')"
+        echo "Memory: $(free -h | grep Mem | awk '{print $2}')"
+        echo "Platform: $(node -p 'process.platform')"
+        echo "Arch: $(node -p 'process.arch')"
+        echo "Node: $(node --version)"
+      
     - name: 📊 Generate Performance Report
       run: |
         mkdir -p docs
