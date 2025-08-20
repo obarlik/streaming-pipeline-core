@@ -1,5 +1,5 @@
 {
-  "name": "streaming-pipeline-core",
+  "name": "@obarlik/streaming-pipeline-core",
   "version": "1.0.1",
   "description": "🔄 Memory-efficient circular buffer streaming pipeline with universal processing - by Codechu",
   "type": "module",
