@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2025-08-20T01:03:55.733Z",
+  "version": "1.0.0",
+  "system": {
+    "platform": "win32",
+    "architecture": "x64",
+    "nodeVersion": "v23.6.0",
+    "osRelease": "10.0.26100",
+    "cpuCount": 12,
+    "cpuModel": "AMD Ryzen 5 5600 6-Core Processor              ",
+    "totalMemory": 64,
+    "freeMemory": 32,
+    "v8Version": "12.9.202.28-node.12",
+    "timestamp": "2025-08-20T01:03:55.706Z",
+    "timezone": "Europe/Istanbul"
+  },
+  "benchmarks": {
+    "bufferCreation": {
+      "name": "Buffer Creation",
+      "throughput": 1417635,
+      "unit": "buffers/sec",
+      "duration": 7.05
+    },
+    "getStatePerformance": {
+      "name": "getState() Operations",
+      "throughput": 22810739,
+      "unit": "ops/sec",
+      "duration": 4.38
+    },
+    "pipelineFactory": {
+      "name": "Pipeline Creation",
+      "throughput": 831601,
+      "unit": "pipelines/sec",
+      "duration": 1.2
+    },
+    "documentProcessing": {
+      "name": "Document Processing",
+      "throughput": 2958580,
+      "unit": "docs/sec",
+      "characterThroughput": 139053254438,
+      "duration": 0.34
+    },
+    "binaryStreaming": {
+      "name": "Binary Streaming",
+      "throughput": 11049724,
+      "unit": "chunks/sec",
+      "dataThroughput": 690608,
+      "dataThroughputUnit": "MB/sec",
+      "duration": 0.09
+    }
+  },
+  "summary": {
+    "totalTests": 5,
+    "environment": "win32 x64",
+    "nodeVersion": "v23.6.0",
+    "cpuModel": "AMD Ryzen 5 5600 6-Core Processor",
+    "memory": "64GB",
+    "cpuCores": 12
+  }
+}

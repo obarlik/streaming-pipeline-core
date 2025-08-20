@@ -1,0 +1,166 @@
+name: 🚀 Performance Report & GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # Allow manual triggering
+
+jobs:
+  performance-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies
+      run: npm ci
+      
+    - name: 🧪 Run Tests
+      run: npm test
+      
+    - name: 📊 Generate Performance Report
+      run: |
+        mkdir -p docs
+        node --import tsx scripts/generate-performance-report.js
+        
+    - name: 📈 Update Historical Data
+      run: node scripts/update-historical-data.js
+        
+    - name: 🎨 Generate Performance Dashboard
+      run: node scripts/generate-dashboard.js
+      
+    - name: 📈 Create Performance Badges
+      run: |
+        # Generate shield.io compatible badges
+        echo "Creating performance badges..."
+        
+        # Extract metrics from JSON
+        BUFFER_CREATION=$(cat performance-report.json | jq -r '.benchmarks.bufferCreation.throughput')
+        GETSTATE_OPS=$(cat performance-report.json | jq -r '.benchmarks.getStatePerformance.throughput')
+        PIPELINE_FACTORY=$(cat performance-report.json | jq -r '.benchmarks.pipelineFactory.throughput')
+        DOC_PROCESSING=$(cat performance-report.json | jq -r '.benchmarks.documentProcessing.throughput')
+        
+        # Format numbers
+        BUFFER_K=$(echo "scale=0; $BUFFER_CREATION / 1000" | bc)
+        GETSTATE_M=$(echo "scale=1; $GETSTATE_OPS / 1000000" | bc)
+        PIPELINE_K=$(echo "scale=0; $PIPELINE_FACTORY / 1000" | bc)
+        DOC_K=$(echo "scale=0; $DOC_PROCESSING / 1000" | bc)
+        
+        # Create badge data
+        mkdir -p docs/badges
+        echo "{\"schemaVersion\": 1, \"label\": \"Buffer Creation\", \"message\": \"${BUFFER_K}K buffers/sec\", \"color\": \"green\"}" > docs/badges/buffer-creation.json
+        echo "{\"schemaVersion\": 1, \"label\": \"getState Performance\", \"message\": \"${GETSTATE_M}M ops/sec\", \"color\": \"blue\"}" > docs/badges/getstate-performance.json
+        echo "{\"schemaVersion\": 1, \"label\": \"Pipeline Factory\", \"message\": \"${PIPELINE_K}K pipelines/sec\", \"color\": \"orange\"}" > docs/badges/pipeline-factory.json
+        echo "{\"schemaVersion\": 1, \"label\": \"Document Processing\", \"message\": \"${DOC_K}K docs/sec\", \"color\": \"purple\"}" > docs/badges/document-processing.json
+        
+    - name: 📄 Copy Report Files
+      run: |
+        cp performance-report.json docs/
+        cp badges.json docs/
+        
+        # Create a simple index.html that redirects to dashboard
+        cat > docs/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=performance-dashboard.html">
+            <title>Redirecting to Performance Dashboard...</title>
+        </head>
+        <body>
+            <p>Redirecting to <a href="performance-dashboard.html">Performance Dashboard</a>...</p>
+        </body>
+        </html>
+        EOF
+        
+    - name: 📋 Create Performance Summary
+      run: |
+        # Create a markdown summary for the workflow
+        cat > performance-summary.md << 'EOF'
+        # 🚀 Performance Report Summary
+        
+        ## 📊 Latest Benchmarks
+        
+        | Metric | Performance | 
+        |--------|-------------|
+        | Buffer Creation | $(cat performance-report.json | jq -r '.benchmarks.bufferCreation.throughput | tonumber / 1000 | floor')K buffers/sec |
+        | getState() Operations | $(cat performance-report.json | jq -r '.benchmarks.getStatePerformance.throughput | tonumber / 1000000 | . * 10 | floor / 10')M ops/sec |
+        | Pipeline Factory | $(cat performance-report.json | jq -r '.benchmarks.pipelineFactory.throughput | tonumber / 1000 | floor')K pipelines/sec |
+        | Document Processing | $(cat performance-report.json | jq -r '.benchmarks.documentProcessing.throughput | tonumber / 1000 | floor')K docs/sec |
+        | Binary Streaming | $(cat performance-report.json | jq -r '.benchmarks.binaryStreaming.dataThroughput')MB/sec |
+        
+        ## 🖥️ System Information
+        
+        - **CPU**: $(cat performance-report.json | jq -r '.system.cpuModel')
+        - **Memory**: $(cat performance-report.json | jq -r '.system.totalMemory')GB RAM
+        - **Platform**: $(cat performance-report.json | jq -r '.system.platform') $(cat performance-report.json | jq -r '.system.architecture')
+        - **Node.js**: $(cat performance-report.json | jq -r '.system.nodeVersion')
+        
+        ## 🔗 Links
+        
+        - [📊 Performance Dashboard](https://obarlik.github.io/streaming-pipeline-core/)
+        - [📦 NPM Package](https://www.npmjs.com/package/@codechu/streaming-pipeline-core)
+        - [📈 Raw Data (JSON)](https://obarlik.github.io/streaming-pipeline-core/performance-report.json)
+        
+        Generated: $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+        EOF
+        
+    - name: 📤 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        force_orphan: true
+        
+    - name: 💬 Comment Performance Report
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const report = JSON.parse(fs.readFileSync('performance-report.json', 'utf8'));
+          
+          const comment = `## 🚀 Performance Report
+          
+          | Metric | Performance |
+          |--------|-------------|
+          | Buffer Creation | ${Math.floor(report.benchmarks.bufferCreation.throughput / 1000)}K buffers/sec |
+          | getState() Operations | ${(report.benchmarks.getStatePerformance.throughput / 1000000).toFixed(1)}M ops/sec |
+          | Pipeline Factory | ${Math.floor(report.benchmarks.pipelineFactory.throughput / 1000)}K pipelines/sec |
+          | Document Processing | ${Math.floor(report.benchmarks.documentProcessing.throughput / 1000)}K docs/sec |
+          | Binary Streaming | ${report.benchmarks.binaryStreaming.dataThroughput}MB/sec |
+          
+          🖥️ **System**: ${report.system.platform} ${report.system.architecture}, ${report.system.cpuCount} cores, ${report.system.totalMemory}GB RAM
+          
+          📊 [View Full Dashboard](https://obarlik.github.io/streaming-pipeline-core/)`;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+          
+    - name: 📊 Upload Performance Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: performance-report
+        path: |
+          performance-report.json
+          docs/performance-dashboard.html
+          docs/badges/
+        retention-days: 30

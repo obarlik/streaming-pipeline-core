@@ -1,0 +1,26 @@
+{
+  "bufferCreation": {
+    "schemaVersion": 1,
+    "label": "Buffer Creation",
+    "message": "1,417,635 buffers/sec",
+    "color": "green"
+  },
+  "getStateOps": {
+    "schemaVersion": 1,
+    "label": "getState() Performance",
+    "message": "22.8M ops/sec",
+    "color": "blue"
+  },
+  "pipelineFactory": {
+    "schemaVersion": 1,
+    "label": "Pipeline Creation",
+    "message": "832K pipelines/sec",
+    "color": "orange"
+  },
+  "documentProcessing": {
+    "schemaVersion": 1,
+    "label": "Document Processing",
+    "message": "2959K docs/sec",
+    "color": "purple"
+  }
+}

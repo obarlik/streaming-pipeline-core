@@ -1,0 +1,43 @@
+{
+  "labels": [
+    "8/20/2025"
+  ],
+  "datasets": [
+    {
+      "label": "Buffer Creation (K/sec)",
+      "data": [
+        1418
+      ],
+      "borderColor": "rgb(75, 192, 192)",
+      "backgroundColor": "rgba(75, 192, 192, 0.2)",
+      "tension": 0.1
+    },
+    {
+      "label": "getState() Performance (M/sec)",
+      "data": [
+        23
+      ],
+      "borderColor": "rgb(255, 99, 132)",
+      "backgroundColor": "rgba(255, 99, 132, 0.2)",
+      "tension": 0.1
+    },
+    {
+      "label": "Pipeline Factory (K/sec)",
+      "data": [
+        832
+      ],
+      "borderColor": "rgb(255, 205, 86)",
+      "backgroundColor": "rgba(255, 205, 86, 0.2)",
+      "tension": 0.1
+    },
+    {
+      "label": "Document Processing (K/sec)",
+      "data": [
+        2959
+      ],
+      "borderColor": "rgb(54, 162, 235)",
+      "backgroundColor": "rgba(54, 162, 235, 0.2)",
+      "tension": 0.1
+    }
+  ]
+}

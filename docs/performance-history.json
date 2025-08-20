@@ -1,0 +1,39 @@
+[
+  {
+    "timestamp": "2025-08-20T01:03:55.733Z",
+    "date": "2025-08-20",
+    "time": "4:03:55 AM",
+    "version": "1.0.0",
+    "system": {
+      "platform": "win32",
+      "architecture": "x64",
+      "nodeVersion": "v23.6.0",
+      "cpuCores": 12,
+      "totalMemory": 64
+    },
+    "metrics": {
+      "bufferCreation": {
+        "throughput": 1417635,
+        "duration": 7.05
+      },
+      "getStatePerformance": {
+        "throughput": 22810739,
+        "duration": 4.38
+      },
+      "pipelineFactory": {
+        "throughput": 831601,
+        "duration": 1.2
+      },
+      "documentProcessing": {
+        "throughput": 2958580,
+        "characterThroughput": 139053254438,
+        "duration": 0.34
+      },
+      "binaryStreaming": {
+        "throughput": 11049724,
+        "dataThroughput": 690608,
+        "duration": 0.09
+      }
+    }
+  }
+]
