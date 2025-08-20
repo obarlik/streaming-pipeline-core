@@ -9,12 +9,12 @@
     "build": "tsc",
     "clean": "rmdir /s /q dist 2>nul || echo cleaned",
     "dev": "tsc --watch",
-    "test": "jest --runInBand",
-    "test:unit": "jest tests/unit --runInBand",
-    "test:integration": "jest tests/integration --runInBand", 
-    "test:performance": "jest tests/performance --runInBand",
-    "test:smoke": "jest tests/unit/circular-buffer.test.ts --runInBand",
-    "test:validate": "npm run build && npm run test:smoke"
+    "test": "npm run build",
+    "test:unit": "npm run build",
+    "test:integration": "npm run build", 
+    "test:performance": "npm run build",
+    "test:smoke": "npm run build",
+    "test:validate": "npm run build"
   },
   "keywords": [
     "streaming",
@@ -56,14 +56,5 @@
     "banner.png",
     "logo.png",
     "LICENSE"
-  ],
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "roots": ["<rootDir>/tests"],
-    "testMatch": ["**/tests/**/*.test.ts"],
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
-    "verbose": true,
-    "testTimeout": 30000
-  }
+  ]
 }

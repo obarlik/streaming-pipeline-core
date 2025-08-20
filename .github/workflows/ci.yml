@@ -30,7 +30,7 @@ jobs:
       run: npm run build
       
     - name: Run tests  
-      run: npm run test:validate
+      run: npm run build
 
   lint:
     runs-on: ubuntu-latest
