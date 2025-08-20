@@ -53,11 +53,11 @@ jobs:
         PIPELINE_FACTORY=$(cat performance-report.json | jq -r '.benchmarks.pipelineFactory.throughput')
         DOC_PROCESSING=$(cat performance-report.json | jq -r '.benchmarks.documentProcessing.throughput')
         
-        # Format numbers
-        BUFFER_K=$(echo "scale=0; $BUFFER_CREATION / 1000" | bc)
-        GETSTATE_M=$(echo "scale=1; $GETSTATE_OPS / 1000000" | bc)
-        PIPELINE_K=$(echo "scale=0; $PIPELINE_FACTORY / 1000" | bc)
-        DOC_K=$(echo "scale=0; $DOC_PROCESSING / 1000" | bc)
+        # Format numbers (using awk instead of bc for GitHub Actions compatibility)
+        BUFFER_K=$(echo "$BUFFER_CREATION" | awk '{printf "%.0f", $1/1000}')
+        GETSTATE_M=$(echo "$GETSTATE_OPS" | awk '{printf "%.1f", $1/1000000}')
+        PIPELINE_K=$(echo "$PIPELINE_FACTORY" | awk '{printf "%.0f", $1/1000}')
+        DOC_K=$(echo "$DOC_PROCESSING" | awk '{printf "%.0f", $1/1000}')
         
         # Create badge data
         mkdir -p docs/badges
