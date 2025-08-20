@@ -234,7 +234,7 @@ export class TestRunner {
 }
 
 // CLI interface
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const command = process.argv[2];
   
   (async () => {
