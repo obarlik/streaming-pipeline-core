@@ -1,6 +1,6 @@
 {
   "name": "@codechu/streaming-pipeline-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🔄 Memory-efficient circular buffer streaming pipeline with universal processing - by Codechu",
   "type": "module",
   "main": "dist/index.js",
