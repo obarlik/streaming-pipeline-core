@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-08-20T01:03:55.733Z",
+  "generatedAt": "2025-08-20T02:43:14.409Z",
   "version": "1.0.0",
   "system": {
     "platform": "win32",
@@ -9,44 +9,44 @@
     "cpuCount": 12,
     "cpuModel": "AMD Ryzen 5 5600 6-Core Processor              ",
     "totalMemory": 64,
-    "freeMemory": 32,
+    "freeMemory": 37,
     "v8Version": "12.9.202.28-node.12",
-    "timestamp": "2025-08-20T01:03:55.706Z",
+    "timestamp": "2025-08-20T02:43:14.386Z",
     "timezone": "Europe/Istanbul"
   },
   "benchmarks": {
     "bufferCreation": {
       "name": "Buffer Creation",
-      "throughput": 1417635,
+      "throughput": 2095953,
       "unit": "buffers/sec",
-      "duration": 7.05
+      "duration": 4.77
     },
     "getStatePerformance": {
       "name": "getState() Operations",
-      "throughput": 22810739,
+      "throughput": 41708375,
       "unit": "ops/sec",
-      "duration": 4.38
+      "duration": 2.4
     },
     "pipelineFactory": {
       "name": "Pipeline Creation",
-      "throughput": 831601,
+      "throughput": 1355014,
       "unit": "pipelines/sec",
-      "duration": 1.2
+      "duration": 0.74
     },
     "documentProcessing": {
       "name": "Document Processing",
-      "throughput": 2958580,
+      "throughput": 2834467,
       "unit": "docs/sec",
-      "characterThroughput": 139053254438,
-      "duration": 0.34
+      "characterThroughput": 133219954649,
+      "duration": 0.35
     },
     "binaryStreaming": {
       "name": "Binary Streaming",
-      "throughput": 11049724,
+      "throughput": 14577259,
       "unit": "chunks/sec",
-      "dataThroughput": 690608,
+      "dataThroughput": 911079,
       "dataThroughputUnit": "MB/sec",
-      "duration": 0.09
+      "duration": 0.07
     }
   },
   "summary": {
