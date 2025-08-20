@@ -1,14 +1,64 @@
-name: Release & Publish
+name: 🚀 Release & Publish
 
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
+  auto-version:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    
+    steps:
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: 📈 Auto Version Bump
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Version bump
+        npm version ${{ github.event.inputs.version_type }} --no-git-tag-version
+        VERSION=$(node -p "require('./package.json').version")
+        
+        # Commit and tag
+        git add package.json
+        git commit -m "chore: release v$VERSION"
+        git tag "v$VERSION"
+        
+        # Push
+        git push origin main
+        git push origin "v$VERSION"
+        
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        
+    outputs:
+      version: ${{ env.VERSION }}
+
   publish-npm:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [auto-version]
+    if: always() && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch')
     
     steps:
     - name: Checkout code
