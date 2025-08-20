@@ -29,10 +29,10 @@ describe('Error Scenarios & Exception Handling', () => {
     }, 'Should not crash on large allocations');
   });
 
-  test('should handle invalid encoding gracefully', () => {
-    assert.doesNotThrow(() => {
+  test('should throw on invalid encoding', () => {
+    assert.throws(() => {
       new TextCircularBuffer(64, 128, 'invalid-encoding' as any);
-    }, 'Should handle invalid encoding');
+    }, /encoding is not supported/, 'Should throw on invalid encoding');
   });
 
   test('should handle null/undefined inputs', () => {
