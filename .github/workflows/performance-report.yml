@@ -11,6 +11,11 @@ on:
   workflow_dispatch:
     # Allow manual triggering
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   performance-report:
     runs-on: ubuntu-latest
