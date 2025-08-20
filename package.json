@@ -2,18 +2,19 @@
   "name": "@codechu/streaming-pipeline-core",
   "version": "1.0.0",
   "description": "🔄 Memory-efficient circular buffer streaming pipeline with universal processing - by Codechu",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rmdir /s /q dist 2>nul || echo cleaned",
     "dev": "tsc --watch",
-    "test": "node tests/test-runner.ts all",
-    "test:unit": "node tests/test-runner.ts unit",
-    "test:integration": "node tests/test-runner.ts integration",
-    "test:performance": "node tests/test-runner.ts performance",
-    "test:smoke": "node tests/test-runner.ts smoke",
-    "test:validate": "node tests/test-runner.ts validate"
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/unit --runInBand",
+    "test:integration": "jest tests/integration --runInBand", 
+    "test:performance": "jest tests/performance --runInBand",
+    "test:smoke": "jest tests/unit/circular-buffer.test.ts --runInBand",
+    "test:validate": "npm run build && npm run test:smoke"
   },
   "keywords": [
     "streaming",
