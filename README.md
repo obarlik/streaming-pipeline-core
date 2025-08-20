@@ -6,7 +6,7 @@
 *A production-ready TypeScript library by [🚀 Codechu](https://codechu.com)*
 
 [![NPM Package](https://img.shields.io/npm/v/@codechu/streaming-pipeline-core.svg?style=for-the-badge&logo=npm&color=2563eb)](https://www.npmjs.com/package/@codechu/streaming-pipeline-core)
-[![License](https://img.shields.io/github/license/codechu/streaming-pipeline-core.svg?style=for-the-badge&color=1e40af)](https://github.com/codechu/streaming-pipeline-core/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/obarlik/streaming-pipeline-core.svg?style=for-the-badge&color=1e40af)](https://github.com/obarlik/streaming-pipeline-core/blob/main/LICENSE)
 [![Built by Codechu](https://img.shields.io/badge/Built%20by-Codechu-1d4ed8?style=for-the-badge)](https://codechu.com)
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-1e40af?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)

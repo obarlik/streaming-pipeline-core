@@ -29,13 +29,13 @@
   ],
   "author": "Codechu <contact@codechu.com>",
   "license": "MIT",
-  "homepage": "https://github.com/codechu/streaming-pipeline-core#readme",
+  "homepage": "https://github.com/obarlik/streaming-pipeline-core#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/codechu/streaming-pipeline-core.git"
+    "url": "https://github.com/obarlik/streaming-pipeline-core.git"
   },
   "bugs": {
-    "url": "https://github.com/codechu/streaming-pipeline-core/issues"
+    "url": "https://github.com/obarlik/streaming-pipeline-core/issues"
   },
   "engines": {
     "node": ">=16.0.0"
